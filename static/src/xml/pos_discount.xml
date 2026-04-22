@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('payment-buttons')]" position="inside">
+            <div class="button" t-on-click="click_deskontu_kodea">
+                <i class="fa fa-tag" /> Deskontu Kodea
+            </div>
+        </xpath>
+    </t>
+</templates>
