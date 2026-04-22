@@ -1,2 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_jatetxeko_deskontuak,jatetxeko.deskontuak,model_jatetxeko_deskontuak,base.group_user,1,1,1,1
+access_jatetxeko_sync_dashboard,jatetxeko.sync.dashboard,model_jatetxeko_sync_dashboard,base.group_user,1,1,1,1
+access_jatetxeko_zerbitzaria,jatetxeko.zerbitzaria,model_jatetxeko_zerbitzaria,base.group_user,1,1,1,1
+access_jatetxeko_platera,jatetxeko.platera,model_jatetxeko_platera,base.group_user,1,1,1,1
+access_jatetxeko_mahaia,jatetxeko.mahaia,model_jatetxeko_mahaia,base.group_user,1,1,1,1
+access_jatetxeko_eskaera,jatetxeko.eskaera,model_jatetxeko_eskaera,base.group_user,1,1,1,1
+access_jatetxeko_eskaera_lerroa,jatetxeko.eskaera.lerroa,model_jatetxeko_eskaera_lerroa,base.group_user,1,1,1,1
+access_jatetxeko_faktura,jatetxeko.faktura,model_jatetxeko_faktura,base.group_user,1,1,1,1

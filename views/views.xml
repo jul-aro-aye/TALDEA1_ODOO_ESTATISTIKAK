@@ -34,7 +34,299 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+        <record id="view_jatetxeko_sync_dashboard_form" model="ir.ui.view">
+            <field name="name">jatetxeko.sync.dashboard.form</field>
+            <field name="model">jatetxeko.sync.dashboard</field>
+            <field name="arch" type="xml">
+                <form create="false" delete="false">
+                    <header>
+                        <button name="action_sync_data" type="object" string="Orain sinkronizatu" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="api_base_url"/>
+                                <field name="last_sync" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="zerbitzari_kopurua" readonly="1"/>
+                                <field name="plater_kopurua" readonly="1"/>
+                                <field name="mahai_kopurua" readonly="1"/>
+                                <field name="eskaera_kopurua" readonly="1"/>
+                                <field name="faktura_kopurua" readonly="1"/>
+                            </group>
+                        </group>
+                        <group string="Sinkronizazioaren egoera">
+                            <field name="last_sync_message" readonly="1" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_zerbitzaria_tree" model="ir.ui.view">
+            <field name="name">jatetxeko.zerbitzaria.tree</field>
+            <field name="model">jatetxeko.zerbitzaria</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="emaila"/>
+                    <field name="rola_izena"/>
+                    <field name="txat"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_platera_tree" model="ir.ui.view">
+            <field name="name">jatetxeko.platera.tree</field>
+            <field name="model">jatetxeko.platera</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="prezioa"/>
+                    <field name="kategoria_id"/>
+                    <field name="stock_aktuala"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_mahaia_tree" model="ir.ui.view">
+            <field name="name">jatetxeko.mahaia.tree</field>
+            <field name="model">jatetxeko.mahaia</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="zenbakia"/>
+                    <field name="kapazitatea"/>
+                    <field name="egoera"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_eskaera_tree" model="ir.ui.view">
+            <field name="name">jatetxeko.eskaera.tree</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="zerbitzaria_id"/>
+                    <field name="mahaia_id"/>
+                    <field name="komensalak"/>
+                    <field name="egoera"/>
+                    <field name="txanda"/>
+                    <field name="sortze_data"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_eskaera_form" model="ir.ui.view">
+            <field name="name">jatetxeko.eskaera.form</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="arch" type="xml">
+                <form create="false" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="zerbitzaria_id" readonly="1"/>
+                                <field name="mahaia_id" readonly="1"/>
+                                <field name="komensalak" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="egoera" readonly="1"/>
+                                <field name="sukaldea_egoera" readonly="1"/>
+                                <field name="txanda" readonly="1"/>
+                                <field name="sortze_data" readonly="1"/>
+                                <field name="itxiera_data" readonly="1"/>
+                            </group>
+                        </group>
+                        <group string="Lerroak">
+                            <field name="lerro_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="platera_id"/>
+                                    <field name="kantitatea"/>
+                                    <field name="prezio_unitarioa"/>
+                                    <field name="guztira"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_faktura_tree" model="ir.ui.view">
+            <field name="name">jatetxeko.faktura.tree</field>
+            <field name="model">jatetxeko.faktura</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="eskaera_id"/>
+                    <field name="data"/>
+                    <field name="totala"/>
+                    <field name="pdf_izena"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_stat_eskaerak_zerbitzarika_graph" model="ir.ui.view">
+            <field name="name">jatetxeko.eskaera.graph.zerbitzarika</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="arch" type="xml">
+                <graph string="Zerbitzariko eskaerak" type="bar">
+                    <field name="zerbitzaria_id"/>
+                    <field name="pedido_kopurua" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_stat_eskaerak_platerka_graph" model="ir.ui.view">
+            <field name="name">jatetxeko.eskaera.lerroa.graph.platerka</field>
+            <field name="model">jatetxeko.eskaera.lerroa</field>
+            <field name="arch" type="xml">
+                <graph string="Plater bakoitzeko eskaerak" type="bar">
+                    <field name="platera_id"/>
+                    <field name="kantitatea" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_stat_eskaerak_asteko_eguna_graph" model="ir.ui.view">
+            <field name="name">jatetxeko.eskaera.graph.asteko.eguna</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="arch" type="xml">
+                <graph string="Asteko eguneko eskaerak" type="bar">
+                    <field name="asteko_eguna"/>
+                    <field name="pedido_kopurua" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_stat_fakturazioa_asteko_eguna_graph" model="ir.ui.view">
+            <field name="name">jatetxeko.faktura.graph.asteko.eguna</field>
+            <field name="model">jatetxeko.faktura</field>
+            <field name="arch" type="xml">
+                <graph string="Asteko eguneko fakturazioa" type="bar">
+                    <field name="asteko_eguna"/>
+                    <field name="totala" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_stat_eskaerak_hileko_eguna_graph" model="ir.ui.view">
+            <field name="name">jatetxeko.eskaera.graph.hileko.eguna</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="arch" type="xml">
+                <graph string="Hileko eguneko eskaerak" type="bar">
+                    <field name="hileko_eguna"/>
+                    <field name="pedido_kopurua" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="jatetxeko_sync_dashboard_main" model="jatetxeko.sync.dashboard">
+            <field name="name">Sinkronizazio panela</field>
+            <field name="api_base_url">http://host.docker.internal:5093</field>
+        </record>
+
+        <record id="action_jatetxeko_sync_dashboard" model="ir.actions.act_window">
+            <field name="name">Sinkronizazioa</field>
+            <field name="res_model">jatetxeko.sync.dashboard</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="jatetxeko_sync_dashboard_main"/>
+        </record>
+
+        <record id="action_jatetxeko_zerbitzariak" model="ir.actions.act_window">
+            <field name="name">Zerbitzariak</field>
+            <field name="res_model">jatetxeko.zerbitzaria</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="action_jatetxeko_platerak" model="ir.actions.act_window">
+            <field name="name">Platerak</field>
+            <field name="res_model">jatetxeko.platera</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="action_jatetxeko_mahaiak" model="ir.actions.act_window">
+            <field name="name">Mahaiak</field>
+            <field name="res_model">jatetxeko.mahaia</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="action_jatetxeko_eskaerak" model="ir.actions.act_window">
+            <field name="name">Eskaerak</field>
+            <field name="res_model">jatetxeko.eskaera</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_jatetxeko_fakturak" model="ir.actions.act_window">
+            <field name="name">Fakturak</field>
+            <field name="res_model">jatetxeko.faktura</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="action_jatetxeko_stat_eskaerak_zerbitzarika" model="ir.actions.act_window">
+            <field name="name">Zerbitzariko eskaerak</field>
+            <field name="res_model">jatetxeko.eskaera</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="view_id" ref="view_jatetxeko_stat_eskaerak_zerbitzarika_graph"/>
+        </record>
+
+        <record id="action_jatetxeko_stat_eskaerak_platerka" model="ir.actions.act_window">
+            <field name="name">Plater bakoitzeko eskaerak</field>
+            <field name="res_model">jatetxeko.eskaera.lerroa</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="view_id" ref="view_jatetxeko_stat_eskaerak_platerka_graph"/>
+        </record>
+
+        <record id="action_jatetxeko_stat_eskaerak_asteko_eguna" model="ir.actions.act_window">
+            <field name="name">Asteko eguneko eskaerak</field>
+            <field name="res_model">jatetxeko.eskaera</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="view_id" ref="view_jatetxeko_stat_eskaerak_asteko_eguna_graph"/>
+        </record>
+
+        <record id="action_jatetxeko_stat_fakturazioa_asteko_eguna" model="ir.actions.act_window">
+            <field name="name">Asteko eguneko fakturazioa</field>
+            <field name="res_model">jatetxeko.faktura</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="view_id" ref="view_jatetxeko_stat_fakturazioa_asteko_eguna_graph"/>
+        </record>
+
+        <record id="action_jatetxeko_stat_eskaerak_hileko_eguna" model="ir.actions.act_window">
+            <field name="name">Hileko eguneko eskaerak</field>
+            <field name="res_model">jatetxeko.eskaera</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="view_id" ref="view_jatetxeko_stat_eskaerak_hileko_eguna_graph"/>
+        </record>
+
+        <record id="ir_cron_jatetxeko_sync_dashboard" model="ir.cron">
+            <field name="name">Jatetxeko Estatistikak sinkronizazioa</field>
+            <field name="model_id" ref="model_jatetxeko_sync_dashboard"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_sync_data()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+        </record>
+
         <menuitem id="menu_jatetxeko_root" name="Jatetxeko Estatistikak" sequence="10"/>
         <menuitem id="menu_jatetxeko_deskontuak" name="Deskontuak" parent="menu_jatetxeko_root" action="action_jatetxeko_deskontuak" sequence="10"/>
+        <menuitem id="menu_jatetxeko_stat_root" name="Estatistikak" parent="menu_jatetxeko_root" sequence="20"/>
+        <menuitem id="menu_jatetxeko_sync_dashboard" name="Sinkronizazioa" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_sync_dashboard" sequence="10"/>
+        <menuitem id="menu_jatetxeko_zerbitzariak" name="Zerbitzariak" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_zerbitzariak" sequence="20"/>
+        <menuitem id="menu_jatetxeko_platerak" name="Platerak" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_platerak" sequence="30"/>
+        <menuitem id="menu_jatetxeko_mahaiak" name="Mahaiak" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_mahaiak" sequence="40"/>
+        <menuitem id="menu_jatetxeko_eskaerak" name="Eskaerak" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_eskaerak" sequence="50"/>
+        <menuitem id="menu_jatetxeko_fakturak" name="Fakturak" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_fakturak" sequence="60"/>
+        <menuitem id="menu_jatetxeko_stat_eskaerak_zerbitzarika" name="Zerbitzariko eskaerak" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_stat_eskaerak_zerbitzarika" sequence="70"/>
+        <menuitem id="menu_jatetxeko_stat_eskaerak_platerka" name="Plater bakoitzeko eskaerak" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_stat_eskaerak_platerka" sequence="80"/>
+        <menuitem id="menu_jatetxeko_stat_eskaerak_asteko_eguna" name="Asteko eguneko eskaerak" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_stat_eskaerak_asteko_eguna" sequence="90"/>
+        <menuitem id="menu_jatetxeko_stat_fakturazioa_asteko_eguna" name="Asteko eguneko fakturazioa" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_stat_fakturazioa_asteko_eguna" sequence="100"/>
+        <menuitem id="menu_jatetxeko_stat_eskaerak_hileko_eguna" name="Hileko eguneko eskaerak" parent="menu_jatetxeko_stat_root" action="action_jatetxeko_stat_eskaerak_hileko_eguna" sequence="110"/>
     </data>
 </odoo>
