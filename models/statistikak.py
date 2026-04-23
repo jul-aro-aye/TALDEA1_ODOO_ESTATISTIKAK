@@ -218,9 +218,9 @@ class JatetxekoZerbitzaria(models.Model):
     ]
 
     name = fields.Char(string="Izena", required=True)
-    emaila = fields.Char(string="Email")
+    emaila = fields.Char(string="Posta elektronikoa")
     rola_izena = fields.Char(string="Rola")
-    txat = fields.Boolean(string="Chat")
+    txat = fields.Boolean(string="Txata")
 
     def sync_from_api(self, items):
         api_ids = [item["id"] for item in items]
@@ -332,11 +332,14 @@ class JatetxekoEskaera(models.Model):
     komensalak = fields.Integer(string="Komentsalak")
     egoera = fields.Char(string="Egoera")
     sukaldea_egoera = fields.Char(string="Sukaldeko egoera")
-    sortze_data = fields.Datetime(string="Eskaera data")
+    sortze_data = fields.Datetime(string="Eskaeraren data")
     itxiera_data = fields.Datetime(string="Itxiera data")
     txanda = fields.Char(string="Txanda")
     asteko_eguna = fields.Selection(WEEKDAY_SELECTION, string="Asteko eguna", store=True)
     hileko_eguna = fields.Integer(string="Hileko eguna", store=True)
+    sortze_eguna = fields.Date(string="Eguna", store=True)
+    sortze_hilabetea = fields.Integer(string="Hilabetea", store=True)
+    sortze_urtea = fields.Integer(string="Urtea", store=True)
     pedido_kopurua = fields.Integer(string="Eskaera kopurua", default=1)
     lerro_ids = fields.One2many("jatetxeko.eskaera.lerroa", "eskaera_id", string="Lerroak")
 
@@ -366,6 +369,9 @@ class JatetxekoEskaera(models.Model):
                 "txanda": item.get("txanda"),
                 "asteko_eguna": self._weekday_key(sortze_data),
                 "hileko_eguna": sortze_data.day if sortze_data else 0,
+                "sortze_eguna": sortze_data.date() if sortze_data else False,
+                "sortze_hilabetea": sortze_data.month if sortze_data else 0,
+                "sortze_urtea": sortze_data.year if sortze_data else 0,
                 "pedido_kopurua": 1,
                 "active": True,
             }
@@ -423,6 +429,11 @@ class JatetxekoEskaeraLerroa(models.Model):
     name = fields.Char(string="Deskribapena", required=True)
     eskaera_id = fields.Many2one("jatetxeko.eskaera", string="Eskaera", required=True, ondelete="cascade")
     platera_id = fields.Many2one("jatetxeko.platera", string="Platera")
+    sortze_eguna = fields.Date(related="eskaera_id.sortze_eguna", string="Eguna", store=True)
+    sortze_hilabetea = fields.Integer(
+        related="eskaera_id.sortze_hilabetea", string="Hilabetea", store=True
+    )
+    sortze_urtea = fields.Integer(related="eskaera_id.sortze_urtea", string="Urtea", store=True)
     kantitatea = fields.Integer(string="Kantitatea")
     prezio_unitarioa = fields.Float(string="Unitateko prezioa")
     guztira = fields.Float(string="Lerro osoa")
@@ -476,10 +487,13 @@ class JatetxekoFaktura(models.Model):
 
     name = fields.Char(string="Izena", required=True)
     eskaera_id = fields.Many2one("jatetxeko.eskaera", string="Eskaera")
-    data = fields.Datetime(string="Faktura data")
+    data = fields.Datetime(string="Fakturaren data")
     totala = fields.Float(string="Guztira")
-    pdf_izena = fields.Char(string="PDF")
+    pdf_izena = fields.Char(string="PDF fitxategia")
     asteko_eguna = fields.Selection(WEEKDAY_SELECTION, string="Asteko eguna", store=True)
+    faktura_eguna = fields.Date(string="Eguna", store=True)
+    faktura_hilabetea = fields.Integer(string="Hilabetea", store=True)
+    faktura_urtea = fields.Integer(string="Urtea", store=True)
 
     def sync_from_api(self, items):
         eskaera_model = self.env["jatetxeko.eskaera"].with_context(active_test=False)
@@ -498,6 +512,9 @@ class JatetxekoFaktura(models.Model):
                 "totala": item.get("totala") or 0.0,
                 "pdf_izena": item.get("pdfIzena"),
                 "asteko_eguna": JatetxekoEskaera._weekday_key(data),
+                "faktura_eguna": data.date() if data else False,
+                "faktura_hilabetea": data.month if data else 0,
+                "faktura_urtea": data.year if data else 0,
                 "active": True,
             }
             record = existing_by_api_id.get(item["id"])

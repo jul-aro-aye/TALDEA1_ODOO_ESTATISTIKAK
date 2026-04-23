@@ -171,6 +171,62 @@
             </field>
         </record>
 
+        <record id="view_jatetxeko_eskaera_search" model="ir.ui.view">
+            <field name="name">jatetxeko.eskaera.search</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="arch" type="xml">
+                <search string="Eskaerak bilatu">
+                    <field name="sortze_eguna"/>
+                    <field name="sortze_hilabetea"/>
+                    <field name="sortze_urtea"/>
+                    <field name="zerbitzaria_id"/>
+                    <field name="mahaia_id"/>
+                    <field name="txanda"/>
+                    <filter string="Gaur" name="gaur" domain="[('sortze_eguna', '=', context_today())]"/>
+                    <separator/>
+                    <filter string="Egunaren arabera" name="group_day" context="{'group_by': 'sortze_eguna'}"/>
+                    <filter string="Hilabetearen arabera" name="group_month" context="{'group_by': 'sortze_hilabetea'}"/>
+                    <filter string="Urtearen arabera" name="group_year" context="{'group_by': 'sortze_urtea'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_eskaera_lerroa_search" model="ir.ui.view">
+            <field name="name">jatetxeko.eskaera.lerroa.search</field>
+            <field name="model">jatetxeko.eskaera.lerroa</field>
+            <field name="arch" type="xml">
+                <search string="Eskaera lerroak bilatu">
+                    <field name="sortze_eguna"/>
+                    <field name="sortze_hilabetea"/>
+                    <field name="sortze_urtea"/>
+                    <field name="platera_id"/>
+                    <filter string="Gaur" name="gaur" domain="[('sortze_eguna', '=', context_today())]"/>
+                    <separator/>
+                    <filter string="Egunaren arabera" name="group_day" context="{'group_by': 'sortze_eguna'}"/>
+                    <filter string="Hilabetearen arabera" name="group_month" context="{'group_by': 'sortze_hilabetea'}"/>
+                    <filter string="Urtearen arabera" name="group_year" context="{'group_by': 'sortze_urtea'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_jatetxeko_faktura_search" model="ir.ui.view">
+            <field name="name">jatetxeko.faktura.search</field>
+            <field name="model">jatetxeko.faktura</field>
+            <field name="arch" type="xml">
+                <search string="Fakturak bilatu">
+                    <field name="faktura_eguna"/>
+                    <field name="faktura_hilabetea"/>
+                    <field name="faktura_urtea"/>
+                    <field name="eskaera_id"/>
+                    <filter string="Gaur" name="gaur" domain="[('faktura_eguna', '=', context_today())]"/>
+                    <separator/>
+                    <filter string="Egunaren arabera" name="group_day" context="{'group_by': 'faktura_eguna'}"/>
+                    <filter string="Hilabetearen arabera" name="group_month" context="{'group_by': 'faktura_hilabetea'}"/>
+                    <filter string="Urtearen arabera" name="group_year" context="{'group_by': 'faktura_urtea'}"/>
+                </search>
+            </field>
+        </record>
+
         <record id="view_jatetxeko_stat_eskaerak_zerbitzarika_graph" model="ir.ui.view">
             <field name="name">jatetxeko.eskaera.graph.zerbitzarika</field>
             <field name="model">jatetxeko.eskaera</field>
@@ -260,12 +316,14 @@
             <field name="name">Eskaerak</field>
             <field name="res_model">jatetxeko.eskaera</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_jatetxeko_eskaera_search"/>
         </record>
 
         <record id="action_jatetxeko_fakturak" model="ir.actions.act_window">
             <field name="name">Fakturak</field>
             <field name="res_model">jatetxeko.faktura</field>
             <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_jatetxeko_faktura_search"/>
         </record>
 
         <record id="action_jatetxeko_stat_eskaerak_zerbitzarika" model="ir.actions.act_window">
@@ -273,6 +331,7 @@
             <field name="res_model">jatetxeko.eskaera</field>
             <field name="view_mode">graph,tree</field>
             <field name="view_id" ref="view_jatetxeko_stat_eskaerak_zerbitzarika_graph"/>
+            <field name="search_view_id" ref="view_jatetxeko_eskaera_search"/>
         </record>
 
         <record id="action_jatetxeko_stat_eskaerak_platerka" model="ir.actions.act_window">
@@ -280,6 +339,7 @@
             <field name="res_model">jatetxeko.eskaera.lerroa</field>
             <field name="view_mode">graph,tree</field>
             <field name="view_id" ref="view_jatetxeko_stat_eskaerak_platerka_graph"/>
+            <field name="search_view_id" ref="view_jatetxeko_eskaera_lerroa_search"/>
         </record>
 
         <record id="action_jatetxeko_stat_eskaerak_asteko_eguna" model="ir.actions.act_window">
@@ -287,6 +347,7 @@
             <field name="res_model">jatetxeko.eskaera</field>
             <field name="view_mode">graph,tree</field>
             <field name="view_id" ref="view_jatetxeko_stat_eskaerak_asteko_eguna_graph"/>
+            <field name="search_view_id" ref="view_jatetxeko_eskaera_search"/>
         </record>
 
         <record id="action_jatetxeko_stat_fakturazioa_asteko_eguna" model="ir.actions.act_window">
@@ -294,6 +355,7 @@
             <field name="res_model">jatetxeko.faktura</field>
             <field name="view_mode">graph,tree</field>
             <field name="view_id" ref="view_jatetxeko_stat_fakturazioa_asteko_eguna_graph"/>
+            <field name="search_view_id" ref="view_jatetxeko_faktura_search"/>
         </record>
 
         <record id="action_jatetxeko_stat_eskaerak_hileko_eguna" model="ir.actions.act_window">
@@ -301,6 +363,7 @@
             <field name="res_model">jatetxeko.eskaera</field>
             <field name="view_mode">graph,tree</field>
             <field name="view_id" ref="view_jatetxeko_stat_eskaerak_hileko_eguna_graph"/>
+            <field name="search_view_id" ref="view_jatetxeko_eskaera_search"/>
         </record>
 
         <record id="ir_cron_jatetxeko_sync_dashboard" model="ir.cron">
