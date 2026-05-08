@@ -11,7 +11,7 @@ from odoo.exceptions import UserError
 
 _LOGGER = logging.getLogger(__name__)
 
-DEFAULT_API_BASE_URL = "http://host.docker.internal:5093"
+DEFAULT_API_BASE_URL = "http://192.168.10.5:5093"
 
 WEEKDAY_SELECTION = [
     ("monday", "Astelehena"),
@@ -159,7 +159,7 @@ class JatetxekoSyncDashboard(models.Model):
         if parsed.hostname not in {"localhost", "127.0.0.1"}:
             return base_url
 
-        host = "host.docker.internal"
+        host = "192.168.10.5"
         netloc = host
         if parsed.port:
             netloc = f"{host}:{parsed.port}"
@@ -219,8 +219,88 @@ class JatetxekoZerbitzaria(models.Model):
 
     name = fields.Char(string="Izena", required=True)
     emaila = fields.Char(string="Posta elektronikoa")
+    pasahitza = fields.Char(string="Pasahitza", copy=False)
     rola_izena = fields.Char(string="Rola")
     txat = fields.Boolean(string="Txata")
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        if self.env.context.get("skip_api_create"):
+            return super().create(vals_list)
+
+        for vals in vals_list:
+            if vals.get("api_id"):
+                continue
+
+            api_payload = self._create_zerbitzaria_in_api(vals)
+            vals["api_id"] = api_payload["id"]
+            vals.setdefault("emaila", api_payload.get("emaila"))
+            vals["rola_izena"] = api_payload.get("rolaIzena") or api_payload.get("rola_izena") or "zerbitzaria"
+            vals["txat"] = api_payload.get("txat", vals.get("txat", False))
+            vals["active"] = True
+
+        return super().create(vals_list)
+
+    def _create_zerbitzaria_in_api(self, vals):
+        dashboard = self.env["jatetxeko.sync.dashboard"].search([], limit=1)
+        base_url = (
+            JatetxekoSyncDashboard._normalize_api_base_url(
+                dashboard.api_base_url if dashboard else DEFAULT_API_BASE_URL
+            )
+            .rstrip("/")
+        )
+        endpoint = f"{base_url}/api/erabiltzaileak"
+        payload = {
+            "erabiltzailea": vals.get("name"),
+            "emaila": vals.get("emaila") or "",
+            "pasahitza": vals.get("pasahitza"),
+            "txat": vals.get("txat", False),
+        }
+
+        if not payload["erabiltzailea"]:
+            raise UserError("Zerbitzariaren izena beharrezkoa da.")
+
+        if not payload["pasahitza"]:
+            raise UserError("Pasahitza beharrezkoa da zerbitzaria APIan sortzeko.")
+
+        body = json.dumps(payload).encode("utf-8")
+        api_request = urlrequest.Request(
+            endpoint,
+            data=body,
+            headers={"Accept": "application/json", "Content-Type": "application/json"},
+            method="POST",
+        )
+
+        try:
+            with urlrequest.urlopen(api_request, timeout=30) as response:
+                raw_body = response.read().decode("utf-8-sig")
+        except urlerror.HTTPError as exc:
+            error_body = exc.read().decode("utf-8-sig") if exc.fp else ""
+            raise UserError(f"APIak HTTP {exc.code} errorea itzuli du: {error_body}") from exc
+        except urlerror.URLError as exc:
+            raise UserError("Ezin izan da APIarekin konektatu zerbitzaria sortzeko.") from exc
+
+        try:
+            data = json.loads(raw_body)
+        except json.JSONDecodeError as exc:
+            raise UserError("APIak ez du baliozko JSONik itzuli zerbitzaria sortzean.") from exc
+
+        code = data.get("Code", data.get("code"))
+        message = data.get("Message", data.get("message"))
+        api_items = data.get("Datuak", data.get("datuak")) or []
+
+        if code != 200:
+            raise UserError(message or "APIak errore bat itzuli du zerbitzaria sortzean.")
+
+        if not api_items:
+            raise UserError("APIak ez du sortutako zerbitzariaren daturik itzuli.")
+
+        api_payload = api_items[0]
+        api_id = api_payload.get("id")
+        if not api_id:
+            raise UserError("APIak ez du sortutako zerbitzariaren IDrik itzuli.")
+
+        return api_payload
 
     def sync_from_api(self, items):
         api_ids = [item["id"] for item in items]
@@ -239,7 +319,7 @@ class JatetxekoZerbitzaria(models.Model):
             if record:
                 record.write(vals)
             else:
-                self.create(vals)
+                self.with_context(skip_api_create=True).create(vals)
 
         self._deactivate_missing(api_ids)
 
