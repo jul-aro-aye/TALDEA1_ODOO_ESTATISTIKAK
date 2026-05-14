@@ -9,6 +9,7 @@
     'depends': ['base', 'point_of_sale'],
     'data': [
         'security/ir.model.access.csv',
+        'report/informeak.xml',
         'views/views.xml',
     ],
     'assets': {

@@ -1,0 +1,400 @@
+<odoo>
+    <data>
+        <record id="action_report_jatetxeko_zerbitzariak" model="ir.actions.report">
+            <field name="name">Zerbitzarien txostena</field>
+            <field name="model">jatetxeko.zerbitzaria</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_zerbitzariak</field>
+            <field name="report_file">jatetxeko_estatistikak.report_zerbitzariak</field>
+            <field name="binding_model_id" ref="model_jatetxeko_zerbitzaria"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_jatetxeko_platerak" model="ir.actions.report">
+            <field name="name">Plateren txostena</field>
+            <field name="model">jatetxeko.platera</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_platerak</field>
+            <field name="report_file">jatetxeko_estatistikak.report_platerak</field>
+            <field name="binding_model_id" ref="model_jatetxeko_platera"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_jatetxeko_mahaiak" model="ir.actions.report">
+            <field name="name">Mahaien txostena</field>
+            <field name="model">jatetxeko.mahaia</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_mahaiak</field>
+            <field name="report_file">jatetxeko_estatistikak.report_mahaiak</field>
+            <field name="binding_model_id" ref="model_jatetxeko_mahaia"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_jatetxeko_eskaerak" model="ir.actions.report">
+            <field name="name">Eskaeren txostena</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_eskaerak</field>
+            <field name="report_file">jatetxeko_estatistikak.report_eskaerak</field>
+            <field name="binding_model_id" ref="model_jatetxeko_eskaera"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_jatetxeko_fakturak" model="ir.actions.report">
+            <field name="name">Fakturen txostena</field>
+            <field name="model">jatetxeko.faktura</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_fakturak</field>
+            <field name="report_file">jatetxeko_estatistikak.report_fakturak</field>
+            <field name="binding_model_id" ref="model_jatetxeko_faktura"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_jatetxeko_eskaerak_zerbitzarika" model="ir.actions.report">
+            <field name="name">Zerbitzariko eskaeren txostena</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_eskaerak_zerbitzarika</field>
+            <field name="report_file">jatetxeko_estatistikak.report_eskaerak_zerbitzarika</field>
+            <field name="binding_model_id" ref="model_jatetxeko_eskaera"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_jatetxeko_eskaerak_platerka" model="ir.actions.report">
+            <field name="name">Plater bakoitzeko eskaeren txostena</field>
+            <field name="model">jatetxeko.eskaera.lerroa</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_eskaerak_platerka</field>
+            <field name="report_file">jatetxeko_estatistikak.report_eskaerak_platerka</field>
+            <field name="binding_model_id" ref="model_jatetxeko_eskaera_lerroa"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_jatetxeko_eskaerak_asteko_eguna" model="ir.actions.report">
+            <field name="name">Asteko eguneko eskaeren txostena</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_eskaerak_asteko_eguna</field>
+            <field name="report_file">jatetxeko_estatistikak.report_eskaerak_asteko_eguna</field>
+            <field name="binding_model_id" ref="model_jatetxeko_eskaera"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_jatetxeko_fakturazioa_asteko_eguna" model="ir.actions.report">
+            <field name="name">Asteko eguneko fakturazioaren txostena</field>
+            <field name="model">jatetxeko.faktura</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_fakturazioa_asteko_eguna</field>
+            <field name="report_file">jatetxeko_estatistikak.report_fakturazioa_asteko_eguna</field>
+            <field name="binding_model_id" ref="model_jatetxeko_faktura"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_jatetxeko_eskaerak_hileko_eguna" model="ir.actions.report">
+            <field name="name">Hileko eguneko eskaeren txostena</field>
+            <field name="model">jatetxeko.eskaera</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">jatetxeko_estatistikak.report_eskaerak_hileko_eguna</field>
+            <field name="report_file">jatetxeko_estatistikak.report_eskaerak_hileko_eguna</field>
+            <field name="binding_model_id" ref="model_jatetxeko_eskaera"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_style">
+            <style>
+                table.jatetxeko-report {
+                    width: 100%;
+                    border-collapse: collapse;
+                    font-size: 12px;
+                }
+                table.jatetxeko-report th,
+                table.jatetxeko-report td {
+                    border: 1px solid #d8d8d8;
+                    padding: 6px;
+                }
+                table.jatetxeko-report th {
+                    background: #f2f2f2;
+                    font-weight: bold;
+                }
+                .jatetxeko-muted {
+                    color: #666;
+                    font-size: 11px;
+                    margin-bottom: 16px;
+                }
+                .jatetxeko-number {
+                    text-align: right;
+                }
+            </style>
+        </template>
+
+        <template id="report_zerbitzariak">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Zerbitzarien txostena</h2>
+                    <p class="jatetxeko-muted">Erregistro kopurua: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Izena</th>
+                                <th>Posta elektronikoa</th>
+                                <th>Rola</th>
+                                <th>Txata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td><span t-esc="doc.name"/></td>
+                                <td><span t-esc="doc.emaila or ''"/></td>
+                                <td><span t-esc="doc.rola_izena or ''"/></td>
+                                <td><span t-esc="'Bai' if doc.txat else 'Ez'"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_platerak">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Plateren txostena</h2>
+                    <p class="jatetxeko-muted">Erregistro kopurua: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Izena</th>
+                                <th>Prezioa</th>
+                                <th>API kategoria</th>
+                                <th>Uneko stocka</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td><span t-esc="doc.name"/></td>
+                                <td class="jatetxeko-number"><span t-esc="'%.2f' % doc.prezioa"/></td>
+                                <td class="jatetxeko-number"><span t-esc="doc.kategoria_id"/></td>
+                                <td class="jatetxeko-number"><span t-esc="doc.stock_aktuala"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_mahaiak">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Mahaien txostena</h2>
+                    <p class="jatetxeko-muted">Erregistro kopurua: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Izena</th>
+                                <th>Zenbakia</th>
+                                <th>Edukiera</th>
+                                <th>Egoera</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td><span t-esc="doc.name"/></td>
+                                <td class="jatetxeko-number"><span t-esc="doc.zenbakia"/></td>
+                                <td class="jatetxeko-number"><span t-esc="doc.kapazitatea"/></td>
+                                <td><span t-esc="doc.egoera or ''"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_eskaerak">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Eskaeren txostena</h2>
+                    <p class="jatetxeko-muted">Erregistro kopurua: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Izena</th>
+                                <th>Zerbitzaria</th>
+                                <th>Mahaia</th>
+                                <th>Komentsalak</th>
+                                <th>Egoera</th>
+                                <th>Txanda</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td><span t-esc="doc.name"/></td>
+                                <td><span t-esc="doc.zerbitzaria_id.name or ''"/></td>
+                                <td><span t-esc="doc.mahaia_id.name or ''"/></td>
+                                <td class="jatetxeko-number"><span t-esc="doc.komensalak"/></td>
+                                <td><span t-esc="doc.egoera or ''"/></td>
+                                <td><span t-esc="doc.txanda or ''"/></td>
+                                <td><span t-field="doc.sortze_data"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_fakturak">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Fakturen txostena</h2>
+                    <p class="jatetxeko-muted">Erregistro kopurua: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Izena</th>
+                                <th>Eskaera</th>
+                                <th>Data</th>
+                                <th>Guztira</th>
+                                <th>PDF fitxategia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td><span t-esc="doc.name"/></td>
+                                <td><span t-esc="doc.eskaera_id.name or ''"/></td>
+                                <td><span t-field="doc.data"/></td>
+                                <td class="jatetxeko-number"><span t-esc="'%.2f' % doc.totala"/></td>
+                                <td><span t-esc="doc.pdf_izena or ''"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_eskaerak_zerbitzarika">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Zerbitzariko eskaeren txostena</h2>
+                    <p class="jatetxeko-muted">Oinarri diren eskaerak: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Zerbitzaria</th>
+                                <th>Eskaera kopurua</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rows" t-as="row">
+                                <td><span t-esc="row['name']"/></td>
+                                <td class="jatetxeko-number"><span t-esc="row['count']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_eskaerak_platerka">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Plater bakoitzeko eskaeren txostena</h2>
+                    <p class="jatetxeko-muted">Oinarri diren lerroak: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Platera</th>
+                                <th>Kantitatea</th>
+                                <th>Guztira</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rows" t-as="row">
+                                <td><span t-esc="row['name']"/></td>
+                                <td class="jatetxeko-number"><span t-esc="row['quantity']"/></td>
+                                <td class="jatetxeko-number"><span t-esc="'%.2f' % row['amount']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_eskaerak_asteko_eguna">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Asteko eguneko eskaeren txostena</h2>
+                    <p class="jatetxeko-muted">Oinarri diren eskaerak: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Asteko eguna</th>
+                                <th>Eskaera kopurua</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rows" t-as="row">
+                                <td><span t-esc="row['name']"/></td>
+                                <td class="jatetxeko-number"><span t-esc="row['count']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_fakturazioa_asteko_eguna">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Asteko eguneko fakturazioaren txostena</h2>
+                    <p class="jatetxeko-muted">Oinarri diren fakturak: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Asteko eguna</th>
+                                <th>Fakturazioa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rows" t-as="row">
+                                <td><span t-esc="row['name']"/></td>
+                                <td class="jatetxeko-number"><span t-esc="'%.2f' % row['amount']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_eskaerak_hileko_eguna">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="jatetxeko_estatistikak.report_style"/>
+                    <h2>Hileko eguneko eskaeren txostena</h2>
+                    <p class="jatetxeko-muted">Oinarri diren eskaerak: <span t-esc="len(docs)"/></p>
+                    <table class="jatetxeko-report">
+                        <thead>
+                            <tr>
+                                <th>Hileko eguna</th>
+                                <th>Eskaera kopurua</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rows" t-as="row">
+                                <td><span t-esc="row['name']"/></td>
+                                <td class="jatetxeko-number"><span t-esc="row['count']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
